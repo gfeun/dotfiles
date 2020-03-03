@@ -1,0 +1,13 @@
+#include ".Xresources.d/colors"
+
+URxvt*termName:         rxvt-256color
+URxvt.font:             xft:Inconsolata for Powerline:size=12:minspace=False, xft:DejaVu Sans:pixelsize=18
+URxvt*boldFont:         xft:Inconsolata for Powerline:size=12:minspace=False, xft:DejaVu Sans:pixelsize=18
+URxvt*letterSpace: 1
+URxvt*scrollstyle:      plain
+URxvt*scrollBar:        False
+URxvt*perl-ext-common:  default,matcher
+URxvt*urlLauncher:      firefox
+URxvt*keysym.M-o:    matcher:last
+URxvt*matcher.button:   1
+URxvt*scrollTtyOutput:  false

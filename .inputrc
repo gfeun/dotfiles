@@ -1,0 +1,23 @@
+$include /etc/inputrc
+
+# inputrc is not used by zsh, but still useful in case of bash fallback
+
+set colored-stats On
+set completion-ignore-case On
+set completion-prefix-display-length 3
+set mark-symlinked-directories On
+set show-all-if-ambiguous On
+set show-all-if-unmodified On
+set visible-stats On
+
+set editing-mode vi
+# vi settings
+$if mode=vi
+  set show-mode-in-prompt on
+  # normal mode
+  set keymap vi-command
+  # insert mode
+  set keymap vi-insert
+  "jk": vi-movement-mode # remap escape
+  "\C-p": history-search-backward
+$endif
