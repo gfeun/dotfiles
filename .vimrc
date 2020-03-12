@@ -74,10 +74,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'ambv/black', { 'for' : 'python' }
+Plug 'psf/black', { 'for' : 'python' }
 Plug 'w0rp/ale'
 Plug 'tyru/open-browser.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --rust-completer --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'python3 install.py --ts-completer --rust-completer --clang-completer' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'gyim/vim-boxdraw'
 
