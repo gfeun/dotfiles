@@ -10,6 +10,13 @@ set t_Co=256
 set t_ut=
 set scrolloff=5 " Keep 5 lines between cursor and top of screen
 
+" Avoid clutter
+set nobackup             " don't keep backup files
+set directory=~/.vim/tmp " put swap files somewhere else
+if !isdirectory(&directory)
+    call mkdir(&directory, "p")
+endif
+
 " Spaces & Tabs {{{
 set expandtab
 set tabstop=2
