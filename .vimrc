@@ -79,6 +79,7 @@ Plug 'posva/vim-vue'
 " Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'andrewstuart/vim-kubernetes'
 
 " Themes
 Plug 'chriskempson/base16-vim'
@@ -139,6 +140,8 @@ command! -bang -nargs=? -complete=dir Files
 
 " Snippets
 let g:UltiSnipsExpandTrigger="<leader><tab>"
+let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
 
 let g:markdown_syntax_conceal = 0
 let g:markdown_folding = 1
