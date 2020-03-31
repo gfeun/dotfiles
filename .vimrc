@@ -17,6 +17,12 @@ if !isdirectory(&directory)
     call mkdir(&directory, "p")
 endif
 
+" Autoclose quifix window if last window
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END
+
 " Spaces & Tabs {{{
 set expandtab
 set tabstop=2
