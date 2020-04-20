@@ -131,7 +131,7 @@ let g:go_auto_type_info = 1
 let g:openbrowser_default_search = 'duckduckgo'
 
 " vim wiki
-let g:vimwiki_list = [{'path': '~/til/', 'path_html': '~/til/html', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/til/', 'index': 'README', 'path_html': '~/til/html', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_url_maxsave = 0
 
 " fzf preview window when using Files command
