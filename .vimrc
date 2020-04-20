@@ -71,7 +71,7 @@ Plug 'gyim/vim-boxdraw'
 Plug 'fatih/vim-go', { 'for' : 'go', 'do': ':GoUpdateBinaries' }
 Plug 'rust-lang/rust.vim', { 'for' : 'rust' }
 Plug 'hashivim/vim-terraform'
-"Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'tag': 'dev'}
 Plug 'VelkyVenik/vim-avr'
 Plug 'IN3D/vim-raml'
 Plug 'posva/vim-vue'
@@ -131,7 +131,7 @@ let g:go_auto_type_info = 1
 let g:openbrowser_default_search = 'duckduckgo'
 
 " vim wiki
-let g:vimwiki_list = [{'path': '~/orga/wiki', 'path_html': '~/orga/wiki/html', 'syntax': 'markdown', 'ext': '.vmd'}]
+let g:vimwiki_list = [{'path': '~/til/', 'path_html': '~/til/html', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_url_maxsave = 0
 
 " fzf preview window when using Files command
