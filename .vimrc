@@ -144,8 +144,10 @@ let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
 
-let g:markdown_syntax_conceal = 0
-let g:markdown_folding = 1
+" Prevent indentlines to set conceallevel https://vi.stackexchange.com/questions/7258/how-do-i-prevent-vim-from-hiding-symbols-in-markdown-and-json
+autocmd FileType markdown let b:indentLine_enabled = 0
+autocmd FileType md let b:indentLine_enabled = 0
+
 " }}}
 " Mappings {{{
 let mapleader="\<Space>"
