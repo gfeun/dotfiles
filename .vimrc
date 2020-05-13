@@ -71,7 +71,7 @@ Plug 'gyim/vim-boxdraw'
 Plug 'fatih/vim-go', { 'for' : 'go', 'do': ':GoUpdateBinaries' }
 Plug 'rust-lang/rust.vim', { 'for' : 'rust' }
 Plug 'hashivim/vim-terraform'
-Plug 'vimwiki/vimwiki', {'tag': 'dev'}
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'VelkyVenik/vim-avr'
 Plug 'IN3D/vim-raml'
 Plug 'posva/vim-vue'
@@ -103,7 +103,7 @@ let g:ale_python_black_use_global = 1
 let g:ale_linters = {
 \   'python': ['black'],
 \   'lua': ["luac", "luacheck"],
-\   'go': ["gofmt", "golint"]
+\   'go': ["gofmt", "golint", "govet"]
 \}
 
 let g:ale_fixers = {
@@ -126,7 +126,7 @@ let g:ycm_filetype_specific_completion_to_disable = {
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 "let g:go_metalinter_autosave = 1
-let g:go_auto_type_info = 1
+"let g:go_auto_type_info = 1
 "let g:go_auto_sameids = 1
 
 let g:openbrowser_default_search = 'duckduckgo'
@@ -177,6 +177,7 @@ autocmd FileType go noremap <buffer> <leader>b :GoBuild<CR>
 autocmd FileType go noremap <buffer> <leader>r :GoRun<CR>
 autocmd FileType go noremap <buffer> <leader>t :GoTest<CR>
 autocmd FileType go noremap <buffer> <leader>d :GoDebugStart<CR>
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
 autocmd Filetype python nnoremap <buffer> <leader>r :exec '!python' shellescape(@%, 1)<CR>
 autocmd Filetype python nnoremap <buffer> <leader>t :exec '!pytest'<CR>

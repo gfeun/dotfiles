@@ -40,8 +40,6 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 bindkey -M viins 'jk' vi-cmd-mode
 
-setopt HIST_IGNORE_DUPS
-
 export PATH="$HOME/.cargo/bin:$PATH" # Cargo install
 
 export PATH="$PATH:/usr/local/go/bin"
@@ -55,7 +53,7 @@ alias apl='sudo -E apt update && sudo apt list --upgradable'
 alias apu='sudo -E apt upgrade'
 alias api='sudo -E apt install'
 alias aps='sudo -E apt search'
-
+alias wiki='vim -c VimwikiIndex'
 
 # functions
 reset_vpn() {
@@ -94,7 +92,7 @@ search_and_replace() {
   for file in $matched_files_array; do
     echo "$file"
     # Start vim without plugins in search/replace mode
-    vim -u NONE -c "%s/$1/$2/gc" -c "wg" "$file";
+    vim -u NONE -c "%s/$1/$2/gc" -c "wq" "$file";
   done
 }
 
