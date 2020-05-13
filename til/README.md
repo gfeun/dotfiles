@@ -4,5 +4,6 @@
 - [create-cloud-init-cdrom](cloud/create-cloud-init-cdrom)
 ## VIM
 - [navigate between functions](vim/navigate-between-functions)
+- [access-command-history](access-command-history)
 ### vim-go
 - [go to definition](vim/vim-go-go-to-definition)
