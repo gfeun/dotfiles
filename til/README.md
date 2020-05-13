@@ -1,5 +1,11 @@
 # Things I Learned
 
+An [Anki](https://apps.ankiweb.net/) deck can be generated from my TIL notes using:
+```bash
+make til.apkg
+```
+> The til.apkg can be imported inside Anki using file -> import
+
 ## Cloud
 - [create-cloud-init-cdrom](cloud/create-cloud-init-cdrom.md)
 ## VIM
