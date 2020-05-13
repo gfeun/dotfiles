@@ -5,6 +5,16 @@ import markdown2
 
 my_anki_deck = genanki.Deck(2059400110, "TIL")
 
+
+# Custom note class to allow for card answer modification while keeping the same id
+# The guid is only computed from the card title field
+# This allows to update a deck without Anki thinking it is a brand new one
+class MyNote(genanki.Note):
+    @property
+    def guid(self):
+        return genanki.guid_for(self.fields[0])
+
+
 my_model = genanki.Model(
     1607392319,
     "Simple Model",
@@ -31,9 +41,7 @@ for path in p.glob("*/*.md"):
         question, answer = html.split("\n", 1)
         # Create note and add tag using note directory name ("vim", "cloud" ...)
         my_anki_deck.add_note(
-            genanki.Note(
-                model=my_model, fields=[question, answer], tags=[path.parent.name]
-            )
+            MyNote(model=my_model, fields=[question, answer], tags=[path.parent.name])
         )
 
 genanki.Package(my_anki_deck).write_to_file("til.apkg")
