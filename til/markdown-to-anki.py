@@ -3,8 +3,6 @@ from pathlib import Path
 import genanki
 import markdown2
 
-my_anki_deck = genanki.Deck(2059400110, "TIL")
-
 
 # Custom note class to allow for card answer modification while keeping the same id
 # The guid is only computed from the card title field
@@ -15,6 +13,7 @@ class MyNote(genanki.Note):
         return genanki.guid_for(self.fields[0])
 
 
+my_anki_deck = genanki.Deck(2059400110, "TIL")
 my_model = genanki.Model(
     1607392319,
     "Simple Model",
