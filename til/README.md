@@ -6,6 +6,8 @@ make til.apkg
 ```
 > The til.apkg can be imported inside Anki using file -> import
 
+## Linux
+- [create-sparse-file](linux/create-sparse-file.md)
 ## Cloud
 - [create-cloud-init-cdrom](cloud/create-cloud-init-cdrom.md)
 ## Golang
