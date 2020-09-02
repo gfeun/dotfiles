@@ -13,6 +13,7 @@ make til.apkg
 - [create-cloud-init-cdrom](cloud/create-cloud-init-cdrom.md)
 ## Golang
 - [access-module-on-private-repo](go/access-module-on-private-repo.md)
+- [build-static-binary](go/build-static-binary.md)
 ## VIM
 - [navigate between functions](vim/navigate-between-functions.md)
 - [access-command-history](vim/access-command-history.md)
