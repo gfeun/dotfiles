@@ -19,3 +19,5 @@ make til.apkg
 - [access-command-history](vim/access-command-history.md)
 ### vim-go
 - [go to definition](vim/vim-go-go-to-definition.md)
+### Firefox
+- [open new tab after current one](firefox/open-new-tab-after-current-one.md)
