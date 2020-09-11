@@ -35,7 +35,7 @@ autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 set number
 set encoding=utf-8
 set wildmenu
-set cursorline
+"set cursorline
 " }}}
 " Searching {{{
 set ignorecase
