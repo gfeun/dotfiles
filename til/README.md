@@ -17,6 +17,7 @@ make til.apkg
 ## VIM
 - [navigate between functions](vim/navigate-between-functions.md)
 - [access-command-history](vim/access-command-history.md)
+- [move between locations](vim/move-between-locations.md)
 ### vim-go
 - [go to definition](vim/vim-go-go-to-definition.md)
 ### Firefox
