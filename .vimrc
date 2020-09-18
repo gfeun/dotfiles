@@ -131,6 +131,7 @@ let g:ycm_python_binary_path = 'python'
 let g:ycm_rust_src_path = '/home/dev/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_filetype_specific_completion_to_disable = {
       \ 'gitcommit': 1,
+      \ 'go': 1,
       \}
 
 let g:ycm_python_interpreter_path = ''
