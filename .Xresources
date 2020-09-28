@@ -13,7 +13,8 @@ URxvt*perl-ext-common:  default,matcher
 URxvt*urlLauncher:      firefox
 URxvt*keysym.M-o:       matcher:select
 URxvt*matcher.button:   1
-URxvt.saveline:         8192
+URxvt*saveLines:        8192
+URxvt*pointerBlank:     True
 
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
