@@ -13,14 +13,20 @@ Config stored in [github repo](https://github.com/gfeun/dotfiles)
 - Network manager : [NetworkManager](https://gitlab.freedesktop.org/NetworkManager/NetworkManager)
 - Blue light filter : [Redshift](http://jonls.dk/redshift/)
 - Web Browser : [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/)
+- Additional package manager for utilities : [Homebrew](https://brew.sh/)
+- Clipboard manager : [copyq](https://github.com/hluk/CopyQ)
+- Screenshot tool : [Flameshot](https://github.com/flameshot-org/flameshot)
 
 ## Terminal
 - Terminal : urxvt
-- Shell : zsh with [Oh my zsh](https://ohmyz.sh/)
+- Shell : zsh with [Oh my zsh](https://ohmyz.sh/) [powerline10k](https://github.com/romkatv/powerlevel10k)
 - Theme : base16 using [base16-manager](https://github.com/base16-manager/base16-manager) (solarized dark 256 theme)
   * `base16-manager set solarized-dark-256`
 
 ## Editor
-- Vim
-- Vim plugin manager: Vim Plug
-- Plugins: see [.vimrc]()
+- Vim with [Vim Plug](https://github.com/junegunn/vim-plug) see [.vimrc]()
+
+## Utilities
+- [fzf](https://github.com/junegunn/fzf) - installed using vim plug
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [bat](https://github.com/sharkdp/bat)
