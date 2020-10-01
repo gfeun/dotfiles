@@ -48,7 +48,8 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+set $terminal kitty
+bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+Shift+a kill
@@ -174,10 +175,11 @@ bar {
 workspace 4 output DP-1
 
 for_window [class="URxvt"] border toggle, border pixel 1
+for_window [class="kitty"] border toggle, border pixel 1
 for_window [class="Firefox"] border toggle, border pixel 1
 
 for_window [instance="scratch"] move scratchpad, move position 80 50, resize set 1200 650;
-bindsym Shift+F1 exec --no-startup-id urxvt -name scratch
+bindsym Shift+F1 exec --no-startup-id $terminal -name scratch --transparent -sh 50
 bindsym F1 scratchpad show
 
 hide_edge_borders smart
@@ -185,3 +187,7 @@ hide_edge_borders smart
 bindsym $mod+c exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
 
 exec --no-startup-id picom --config ~/.config/i3/picom.conf -b
+exec --no-startup-id copyq
+
+exec_always --no-startup-id kitti3 -p top
+bindsym $mod+n nop kitti3
