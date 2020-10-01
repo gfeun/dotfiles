@@ -12,6 +12,11 @@ export PATH=$HOME/bin:/usr/local/bin:"$HOME"/.local/bin:$PATH
 export ZSH=~/.oh-my-zsh
 export FZF_BASE=~/.fzf/
 
+# Brew
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+# Krew
+export PATH="${PATH}:${HOME}/.krew/bin"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
