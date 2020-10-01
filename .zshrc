@@ -6,10 +6,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/home/dev/.local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:"$HOME"/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/dev/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export FZF_BASE=~/.fzf/
 
 
@@ -48,9 +48,9 @@ bindkey -M viins 'jk' vi-cmd-mode
 export PATH="$HOME/.cargo/bin:$PATH" # Cargo install
 
 export PATH="$PATH:/usr/local/go/bin"
-export GOBIN=/home/dev/go/bin/
+export GOBIN="$HOME"/go/bin/
 export PATH=$PATH:$GOBIN
-export GOPATH=/home/dev/go
+export GOPATH="$HOME"/go
 export GOROOT=/usr/local/go
 
 # aliases
