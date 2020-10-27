@@ -20,7 +20,6 @@ set $mod Mod4
 #font pango:DejaVu Sans Mono 10
 font xft:MesloLGS NF 12
 
-
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -28,9 +27,6 @@ font xft:MesloLGS NF 12
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -112,9 +108,11 @@ bindsym $mod+q focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+set $ws1 "1 Term"
+set $ws2 "2 Web"
 # switch to workspace
-bindsym $mod+ampersand workspace 1
-bindsym $mod+eacute workspace 2
+bindsym $mod+ampersand workspace number $ws1
+bindsym $mod+eacute workspace number $ws2
 bindsym $mod+quotedbl workspace 3
 bindsym $mod+apostrophe workspace 4
 bindsym $mod+parenleft workspace 5
@@ -125,8 +123,8 @@ bindsym $mod+ccedilla workspace 9
 bindsym $mod+agrave workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+ampersand move container to workspace 1
-bindsym $mod+Shift+eacute move container to workspace 2
+bindsym $mod+Shift+ampersand move container to workspace 1 Term
+bindsym $mod+Shift+eacute move container to workspace 2 Web
 bindsym $mod+Shift+quotedbl move container to workspace 3
 bindsym $mod+Shift+apostrophe move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
@@ -152,6 +150,11 @@ mode "resize" {
         bindsym $down resize shrink height 10 px or 10 ppt
         bindsym $right resize grow width 10 px or 10 ppt
 
+        bindsym Shift+$left resize shrink width 50 px or 50 ppt
+        bindsym Shift+$up resize grow height 50 px or 50 ppt
+        bindsym Shift+$down resize shrink height 50 px or 50 ppt
+        bindsym Shift+$right resize grow width 50 px or 50 ppt
+
         # same bindings, but for the arrow keys
         bindsym $left resize shrink width 10 px or 10 ppt
         bindsym $up resize grow height 10 px or 10 ppt
@@ -169,14 +172,16 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command py3status
-        # mode hide
 }
+
+workspace_auto_back_and_forth yes
 
 workspace 4 output DP-1
 
 for_window [class="URxvt"] border toggle, border pixel 1
 for_window [class="kitty"] border toggle, border pixel 1
 for_window [class="Firefox"] border toggle, border pixel 1
+for_window [class="Chromium"] border toggle, border pixel 1
 
 for_window [instance="scratch"] move scratchpad, move position 80 50, resize set 1200 650;
 bindsym Shift+F1 exec --no-startup-id $terminal -name scratch --transparent -sh 50
@@ -186,8 +191,13 @@ hide_edge_borders smart
 
 bindsym $mod+c exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
 
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
 exec --no-startup-id picom --config ~/.config/i3/picom.conf -b
 exec --no-startup-id copyq
+exec --no-startup-id flameshot
 
-exec_always --no-startup-id kitti3 -p top
-bindsym $mod+n nop kitti3
+exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/kitty'
+exec --no-startup-id i3-msg 'workspace $ws2; exec /usr/local/bin/firefox'
