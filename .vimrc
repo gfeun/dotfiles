@@ -152,6 +152,12 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = exepath("clangd")
 
+let g:go_term_enabled = 1
+let g:go_term_reuse = 1
+let g:go_term_mode = "split"
+let g:go_term_height = 30
+let g:go_term_width = 30
+
 let g:go_auto_sameids = 1
 let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_chan_whitespace_error = 1
