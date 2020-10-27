@@ -125,6 +125,8 @@ let g:ale_fixers = {
 " autocompletion
 set completeopt=menu,menuone,preview,noselect,noinsert
 
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<C-j>']
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python'
