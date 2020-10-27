@@ -130,7 +130,8 @@ let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python'
-let g:ycm_rust_src_path = '/home/dev/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:ycm_rust_src_path = '/home/gfeun/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:ycm_filetype_blacklist = {}
 let g:ycm_filetype_specific_completion_to_disable = {
       \ 'gitcommit': 1,
       \ 'go': 1,
@@ -138,7 +139,7 @@ let g:ycm_filetype_specific_completion_to_disable = {
 
 let g:ycm_python_interpreter_path = ''
 let g:ycm_python_sys_path = [
-      \ '/home/dev/.local/lib/',
+      \ '/home/gfeun/.local/lib/',
       \]
 let g:ycm_extra_conf_vim_data = [
       \  'g:ycm_python_interpreter_path',
