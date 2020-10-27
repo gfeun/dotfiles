@@ -187,6 +187,7 @@ let g:vimwiki_list = [{'path': '~/til/', 'index': 'README', 'path_html': '~/til/
 let g:vimwiki_url_maxsave = 0
 
 " Snippets
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
