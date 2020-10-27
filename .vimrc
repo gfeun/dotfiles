@@ -20,7 +20,7 @@ endif
 " Autoclose quifix window if last window
 aug QFClose
   au!
-  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+  au WinEnter * ++nested if winnr('$') == 1 && &buftype == "quickfix"  | q|endif
 aug END
 
 " Spaces & Tabs {{{
