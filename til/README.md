@@ -12,6 +12,7 @@ make til.apkg
 ## Linux
 - [create-sparse-file](linux/create-sparse-file.md)
 - [get-shell-function-definition](linux/get-shell-function-definition)
+- [global-shell-functions](linux/global-shell-functions)
 ## Cloud
 - [create-cloud-init-cdrom](cloud/create-cloud-init-cdrom.md)
 ## Golang
