@@ -1,5 +1,6 @@
 " vim:set foldmethod=marker foldlevel=0:
 " This modeline  folds the different vimrc sections
+let &t_ut=''
 
 filetype plugin on
 set modeline
@@ -30,6 +31,8 @@ set shiftwidth=2
 filetype indent on
 set autoindent
 autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+"set list
 " }}}
 " UI Layout {{{
 set number
@@ -178,7 +181,6 @@ let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_fmt_experimental = 1
 let g:go_fmt_command = "goimports"
-
 
 let g:openbrowser_default_search = 'duckduckgo'
 
