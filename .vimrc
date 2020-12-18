@@ -188,6 +188,9 @@ let g:openbrowser_default_search = 'duckduckgo'
 let g:vimwiki_list = [{'path': '~/til/', 'index': 'README', 'path_html': '~/til/html', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_url_maxsave = 0
 
+autocmd * UltiSnipsAddFiletypes vimwiki
+let g:vimwiki_table_mappings = 0
+
 " Snippets
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 let g:UltiSnipsExpandTrigger="<leader><tab>"
