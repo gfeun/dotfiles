@@ -72,6 +72,12 @@ alias apu='sudo -E apt upgrade'
 alias api='sudo -E apt install'
 alias aps='sudo -E apt search'
 alias wiki='vim -c VimwikiIndex'
+alias yga='yadm add'
+alias ygc='yadm commit'
+alias ygp='yadm push'
+alias ygst='yadm status'
+alias tw='timew'
+alias tws='timew summary :ids'
 
 # functions
 reset_vpn() {
