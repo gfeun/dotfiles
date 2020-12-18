@@ -35,6 +35,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+bindsym Print exec flameshot gui
+
 set $up k
 set $down j
 set $left h
@@ -110,6 +112,7 @@ bindsym $mod+q focus parent
 
 set $ws1 "1 Term"
 set $ws2 "2 Web"
+
 # switch to workspace
 bindsym $mod+ampersand workspace number $ws1
 bindsym $mod+eacute workspace number $ws2
