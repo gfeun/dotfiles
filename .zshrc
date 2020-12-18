@@ -15,6 +15,13 @@ export FZF_BASE=~/.fzf/
 # Brew
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
 # Krew
 export PATH="${PATH}:${HOME}/.krew/bin"
 
