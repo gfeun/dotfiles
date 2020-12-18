@@ -52,6 +52,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+unsetopt BEEP
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export EDITOR='vim'
