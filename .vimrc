@@ -186,7 +186,11 @@ let g:go_fmt_command = "goimports"
 let g:openbrowser_default_search = 'duckduckgo'
 
 " vim wiki
-let g:vimwiki_list = [{'path': '~/til/', 'index': 'README', 'path_html': '~/til/html', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [
+\ {'path': '~/til/', 'index': 'README', 'path_html': '~/til/html', 'syntax': 'markdown', 'ext': '.md'},
+\ {'path': '~/orga/', 'index': 'okr', 'path_html': '~/orga/html', 'syntax': 'markdown', 'ext': '.md'}
+\]
+
 let g:vimwiki_url_maxsave = 0
 
 autocmd * UltiSnipsAddFiletypes vimwiki
