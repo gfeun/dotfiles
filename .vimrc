@@ -123,6 +123,7 @@ let g:ale_fixers = {
 \   'python': ['black'],
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
+\   'sh': ['shfmt'],
 \}
 
 " autocompletion
