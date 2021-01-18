@@ -18,6 +18,10 @@ if !isdirectory(&directory)
     call mkdir(&directory, "p")
 endif
 
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
+
 " Autoclose quifix window if last window
 aug QFClose
   au!
