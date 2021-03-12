@@ -187,7 +187,7 @@ for_window [class="Firefox"] border toggle, border pixel 1
 for_window [class="Chromium"] border toggle, border pixel 1
 
 for_window [instance="scratch"] move scratchpad, move position 80 50, resize set 1200 650;
-bindsym Shift+F1 exec --no-startup-id $terminal -name scratch --transparent -sh 50
+bindsym Shift+F1 exec $terminal --name scratch
 bindsym F1 scratchpad show
 
 hide_edge_borders smart
