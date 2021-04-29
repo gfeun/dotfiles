@@ -1,14 +1,20 @@
 " vim:set foldmethod=marker foldlevel=0:
 " This modeline  folds the different vimrc sections
-let &t_ut=''
-
 filetype plugin on
+filetype indent on
+syntax on
+
+if &term =~# '256color'
+    " disable Background Color Erase (BCE) so that color schemes
+    " render properly when inside 256-color tmux and GNU screen.
+    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+    set t_ut=
+    set t_Co=256
+endif
+
 set modeline
 set modelines=1
-set nocompatible
-syntax on
-set t_Co=256
-set t_ut=
+
 set scrolloff=5 " Keep 5 lines between cursor and top of screen
 
 " Avoid clutter
