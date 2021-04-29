@@ -124,7 +124,7 @@ let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>']
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
-"let g:ycm_python_binary_path = 'python3'
+"
 let g:ycm_rust_src_path = '/home/gfeun/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_filetype_blacklist = {}
 let g:ycm_filetype_specific_completion_to_disable = {
@@ -145,12 +145,15 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = exepath("clangd")
+let g:ycm_clangd_binary_path = exepath('clangd')
 
+
+let g:go_doc_popup_window = 1
+let g:go_list_type = 'quickfix'
 let g:go_term_enabled = 1
 let g:go_term_reuse = 1
-let g:go_term_mode = "split"
-let g:go_term_height = 30
+let g:go_term_mode = 'split'
+let g:go_term_height = 10
 let g:go_term_width = 30
 
 let g:go_auto_sameids = 1
@@ -172,7 +175,7 @@ let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_fmt_experimental = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 
 let g:openbrowser_default_search = 'duckduckgo'
 
@@ -184,14 +187,18 @@ let g:vimwiki_list = [
 
 let g:vimwiki_url_maxsave = 0
 
-autocmd * UltiSnipsAddFiletypes vimwiki
+augroup markdownGroup
+  au!
+  autocmd Filetype markdown UltiSnipsAddFiletypes vimwiki
+augroup END
+
 let g:vimwiki_table_mappings = 0
 
 " Snippets
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
+let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
+let g:UltiSnipsExpandTrigger='<leader><tab>'
+let g:UltiSnipsJumpForwardTrigger='<leader><tab>'
+let g:UltiSnipsJumpBackwardTrigger='<leader><S-tab>'
 
 " Prevent indentlines to set conceallevel https://vi.stackexchange.com/questions/7258/how-do-i-prevent-vim-from-hiding-symbols-in-markdown-and-json
 
@@ -199,23 +206,31 @@ let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
 " Mappings {{{
 let mapleader="\<Space>"
 inoremap jk <ESC>
+tnoremap jk <ESC>
 
 " Tabs management
 nnoremap <leader>tp :tabprevious<CR>
 nnoremap <leader>tn :tabnext<CR>
 nnoremap <leader>tc :tabclose<CR>
+tnoremap <leader>tp :tabprevious<CR>
+tnoremap <leader>tn :tabnext<CR>
+tnoremap <leader>tc :tabclose<CR>
 
 " Window movement
 noremap <leader>l <C-w>l
 noremap <leader>h <C-w>h
 noremap <leader>k <C-w>k
 noremap <leader>j <C-w>j
+tnoremap <leader>l <C-w>l
+tnoremap <leader>h <C-w>h
+tnoremap <leader>k <C-w>k
+tnoremap <leader>j <C-w>j
 
 " youcompleteme
 nnoremap <leader>yt :YcmCompleter GetType<CR>
 nnoremap <leader>yg :YcmCompleter GoTo<CR>
 nnoremap <leader>yd :YcmCompleter GetDoc<CR>
-nnoremap <leader>yr :YcmCompleter RefactorRename
+nnoremap <leader>yr :YcmCompleter RefactorRename <C-r><C-w><space>
 
 " Ale diagnostics
 noremap <C-n> :ALENext<CR>
@@ -228,8 +243,10 @@ command! -bang -nargs=? -complete=dir Files
 
 nnoremap <leader>F :Files<CR>
 nnoremap <leader>B :Buffers<CR>
-nnoremap <leader>H :History:<CR> " Command history
-nnoremap <leader>S :History/<CR> " Search history
+" Command history
+nnoremap <leader>H :History:<CR>
+" Search history
+nnoremap <leader>S :History/<CR>
 
 nmap <C-k> <C-u>zz " go up half screen and center cursor
 nmap <C-j> <C-f>zz " go down half screen and center cursor
@@ -243,16 +260,22 @@ noremap <leader>t :make test<CR>
 
 " Language specific bindings for build/run/test/*
 " Go
-autocmd FileType go noremap <buffer> <leader>b :GoBuild<CR>
-autocmd FileType go noremap <buffer> <leader>r :GoRun<CR>
-autocmd FileType go noremap <buffer> <leader>t :GoTest<CR>
-autocmd FileType go noremap <buffer> <leader>d :GoDebugStart<CR>
-autocmd FileType go nnoremap <buffer> <leader>g :GoDef<CR>
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
+augroup goGroup
+  au!
+  autocmd FileType go noremap <buffer> <leader>b :GoBuild<CR>
+  autocmd FileType go noremap <buffer> <leader>r :GoRun<CR>
+  autocmd FileType go noremap <buffer> <leader>t :GoTest<CR>
+  autocmd FileType go noremap <buffer> <leader>d :GoDebugStart<CR>
+  autocmd FileType go nnoremap <buffer> <leader>g :GoDef<CR>
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+augroup END
 
 " Python
-autocmd Filetype python nnoremap <buffer> <leader>r :exec '!python3' shellescape(@%, 1)<CR>
-autocmd Filetype python nnoremap <buffer> <leader>t :exec '!pytest'<CR>
+augroup pythonGroup
+  au!
+  autocmd Filetype python nnoremap <buffer> <leader>r :exec '!python3' shellescape(@%, 1)<CR>
+  autocmd Filetype python nnoremap <buffer> <leader>t :exec '!pytest'<CR>
+augroup END
 
 " }}}
 " Vim Plug {{{
@@ -263,8 +286,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-"Plug 'airblade/vim-gitgutter'
-Plug 'psf/black', { 'for' : 'python', 'tag': '*' }
 Plug 'w0rp/ale'
 Plug 'tyru/open-browser.vim'
 Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'python3 install.py --ts-completer --rust-completer --clang-completer --clang-completer' }
@@ -286,8 +307,8 @@ Plug 'andrewstuart/vim-kubernetes'
 " Themes
 "Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme="distinguished"
-"Plug 'tomasiser/vim-code-dark'
+let g:airline_theme='distinguished'
+Plug 'tomasiser/vim-code-dark'
 "Plug 'altercation/vim-colors-solarized'
 
 " load last
