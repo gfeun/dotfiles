@@ -48,6 +48,7 @@ plugins=(
   fzf
   systemd
   minikube
+  taskwarrior
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -66,6 +67,10 @@ export PATH=$PATH:$GOBIN
 export GOPATH="$HOME"/go
 export GOROOT=/usr/local/go
 
+function timew () {
+    command timew "$@" && py3-cmd refresh timewarrior
+}
+
 # aliases
 alias apl='sudo -E apt update && sudo apt list --upgradable'
 alias apu='sudo -E apt upgrade'
@@ -77,8 +82,12 @@ alias ygc='yadm commit'
 alias ygp='yadm push'
 alias ygst='yadm status'
 alias tw='timew'
-alias tws='timew summary :ids'
+alias twmo='tw move'
+alias twme='tw modify end'
+alias tws='tw summary :ids'
+alias twsw='tw summary :week :ids'
 
+alias icat='kitty +kitten icat'
 # functions
 reset_vpn() {
   sudo pkill openvpn
@@ -143,6 +152,7 @@ WTS() {
     sleep $SLEEP
   done
 }
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
