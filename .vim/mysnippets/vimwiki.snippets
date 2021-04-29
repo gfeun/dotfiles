@@ -3,7 +3,7 @@ extends markdown
 # 
 global !p
 def get_category(snip):
-	for i in range(1,5):
+	for i in range(1,10):
 		line = snip.buffer[snip.line - i]
 		if line and line[0] == '#':
 			category = line.lstrip('#').lstrip().lower()
