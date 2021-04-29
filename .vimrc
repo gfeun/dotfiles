@@ -73,12 +73,8 @@ set foldlevelstart=10
 " Plugin Config {{{
 let g:airline#extensions#tabline#enabled = 1
 
-
 " ale linter
 let g:ale_completion_enabled = 0
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'yarn'
-let g:ale_javascript_eslint_options = 'run eslint'
 
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -86,13 +82,25 @@ let g:ale_open_list = 1
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'yarn'
+let g:ale_javascript_eslint_options = 'run eslint'
+
 let g:ale_python_black_use_global = 1
+let g:ale_markdown_mdl_options = '--rules "~MD013"'
+let g:ale_set_balloons = 1
+
 let g:ale_linters = {
-\   'python': ["pyflakes"],
-\   'lua': ["luac", "luacheck"],
-\   'go': ["gofmt", "golint", "govet"],
+\   'python': ['pyflakes'],
+\   'lua': ['luac', 'luacheck'],
+\   'go': ['gofmt', 'golint', 'govet'],
 \   'typescript': ['eslint', 'tsserver'],
 \   'c' : ['clangd'],
+\   'markdown': ['mdl'],
 \}
 
 let g:ale_fixers = {
