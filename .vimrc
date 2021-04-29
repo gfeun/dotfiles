@@ -17,16 +17,25 @@ set modelines=1
 
 set scrolloff=5 " Keep 5 lines between cursor and top of screen
 
+set history=200   " keep 200 lines of command line history
+set showcmd   " display incomplete commands
+
 " Avoid clutter
 set nobackup             " don't keep backup files
 set directory=~/.vim/tmp " put swap files somewhere else
 if !isdirectory(&directory)
-    call mkdir(&directory, "p")
+    call mkdir(&directory, 'p')
 endif
 
-if has("autocmd")
-    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
+" Restore cursor from last edit position, except on git commit
+" from: https://github.com/vim/vim/blob/master/runtime/defaults.vim
+augroup vimStartup
+  au!
+  autocmd BufReadPost *
+   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+   \ |   exe "normal! g`\""
+   \ | endif
+augroup END
 
 " Autoclose quifix window if last window
 aug QFClose
@@ -35,12 +44,9 @@ aug QFClose
 aug END
 
 " Spaces & Tabs {{{
-set expandtab
-set tabstop=2
-set shiftwidth=2
-filetype indent on
+set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
-autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 "set list
 " }}}
