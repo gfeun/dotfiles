@@ -7,7 +7,6 @@ set update.lastnaggedversion 1.14.0
 set update.checkintervalsecs 86400
 
 " Binds
-bind jk composite mode normal ; hidecmdline
 bind d composite tab #; tabclose #
 bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
 bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
