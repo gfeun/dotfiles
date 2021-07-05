@@ -18,7 +18,7 @@ set $mod Mod4
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 10
-font xft:MesloLGS NF 12
+font xft:MesloLGS NF 14
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -44,6 +44,8 @@ set $right l
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+default_border pixel
 
 # start a terminal
 set $terminal kitty
@@ -112,11 +114,12 @@ bindsym $mod+q focus parent
 
 set $ws1 "1 Term"
 set $ws2 "2 Web"
+set $ws3 "3 Client"
 
 # switch to workspace
-bindsym $mod+ampersand workspace number $ws1
-bindsym $mod+eacute workspace number $ws2
-bindsym $mod+quotedbl workspace 3
+bindsym $mod+ampersand workspace $ws1
+bindsym $mod+eacute workspace $ws2
+bindsym $mod+quotedbl workspace $ws3
 bindsym $mod+apostrophe workspace 4
 bindsym $mod+parenleft workspace 5
 bindsym $mod+minus workspace 6
@@ -126,9 +129,9 @@ bindsym $mod+ccedilla workspace 9
 bindsym $mod+agrave workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+ampersand move container to workspace 1 Term
-bindsym $mod+Shift+eacute move container to workspace 2 Web
-bindsym $mod+Shift+quotedbl move container to workspace 3
+bindsym $mod+Shift+ampersand move container to workspace $ws1
+bindsym $mod+Shift+eacute move container to workspace $ws2
+bindsym $mod+Shift+quotedbl move container to workspace $ws3
 bindsym $mod+Shift+apostrophe move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+minus move container to workspace 6
@@ -148,15 +151,15 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        bindsym $left resize shrink width 10 px or 10 ppt
-        bindsym $up resize grow height 10 px or 10 ppt
-        bindsym $down resize shrink height 10 px or 10 ppt
-        bindsym $right resize grow width 10 px or 10 ppt
+        bindsym $left resize shrink width 10 px or 5 ppt
+        bindsym $up resize grow height 10 px or 5 ppt
+        bindsym $down resize shrink height 10px or 5 ppt
+        bindsym $right resize grow width 10 px or 5 ppt
 
-        bindsym Shift+$left resize shrink width 50 px or 50 ppt
-        bindsym Shift+$up resize grow height 50 px or 50 ppt
-        bindsym Shift+$down resize shrink height 50 px or 50 ppt
-        bindsym Shift+$right resize grow width 50 px or 50 ppt
+        bindsym Shift+$left resize shrink width 50 px or 20 ppt
+        bindsym Shift+$up resize grow height 50 px or 20 ppt
+        bindsym Shift+$down resize shrink height 50 px or 20 ppt
+        bindsym Shift+$right resize grow width 50 px or 20 ppt
 
         # same bindings, but for the arrow keys
         bindsym $left resize shrink width 10 px or 10 ppt
@@ -187,13 +190,13 @@ for_window [class="kitty"] border toggle, border pixel 1
 for_window [class="Firefox"] border toggle, border pixel 1
 for_window [class="Chromium"] border toggle, border pixel 1
 
-for_window [instance="scratch"] move scratchpad, move position 80 50, resize set 1200 650;
+for_window [instance="scratch"] move scratchpad, move position 25ppt 1ppt, resize set 50ppt 25ppt;
 bindsym Shift+F1 exec $terminal --name scratch
 bindsym F1 scratchpad show
 
 hide_edge_borders smart
 
-bindsym $mod+c exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
+bindsym $mod+c exec "i3-msg 'floating toggle; sticky toggle; resize set width 25ppt 25ppt; move position 1ppt 1ppt;'"
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -205,3 +208,4 @@ exec --no-startup-id flameshot
 
 exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/kitty'
 exec --no-startup-id i3-msg 'workspace $ws2; exec /usr/local/bin/firefox'
+exec --no-startup-id i3-msg 'workspace $ws3; exec /usr/local/bin/firefox -P Splio'
