@@ -6,10 +6,12 @@ set update.nagwait 7
 set update.lastnaggedversion 1.14.0
 set update.checkintervalsecs 86400
 
+" Blacklists
+blacklistadd https://excalidraw.com/
+blacklistadd https://docs.google.com
+
 " Binds
 bind d composite tab #; tabclose #
-bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
-bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl
