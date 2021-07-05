@@ -13,6 +13,7 @@ make til.apkg
 - [create-sparse-file](linux/create-sparse-file.md)
 - [get-shell-function-definition](linux/get-shell-function-definition)
 - [global-shell-functions](linux/global-shell-functions)
+- [tail-f-with-less](linux/tail-f-with-less)
 
 ## Cloud
 
