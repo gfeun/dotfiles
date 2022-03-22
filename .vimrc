@@ -1,5 +1,8 @@
 " vim:set foldmethod=marker foldlevel=0:
 " This modeline  folds the different vimrc sections
+set encoding=utf-8
+scriptencoding utf-8
+
 filetype plugin on
 filetype indent on
 syntax on
@@ -11,6 +14,8 @@ if &term =~# '256color'
     set t_ut=
     set t_Co=256
 endif
+
+colorscheme torte
 
 set modeline
 set modelines=1
@@ -52,7 +57,6 @@ set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 " }}}
 " UI Layout {{{
 set number
-set encoding=utf-8
 set wildmenu
 "set cursorline
 " }}}
@@ -82,33 +86,45 @@ let g:ale_open_list = 1
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '[%linter%]% (code) :% %s [%severity%]'
 
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'yarn'
 let g:ale_javascript_eslint_options = 'run eslint'
 
 let g:ale_python_black_use_global = 1
+let g:ale_python_black_options = '--line-length 120'
+let g:ale_python_flake8_options = '--max-line-length 120'
+let g:ale_python_pylint_options = '--max-line-length 120'
 let g:ale_markdown_mdl_options = '--rules "~MD013"'
 let g:ale_set_balloons = 1
 
+let g:ale_perl_perlcritic_options = '-1'
+let g:ale_perl_perlcritic_showrules = 1
+let g:ale_perl_perltidy_options = ''
+
 let g:ale_linters = {
-\   'python': ['pyflakes'],
+\   'python': ['mypy', 'pyls', 'pyflakes', 'flake8', 'bandit', 'pylint'],
 \   'lua': ['luac', 'luacheck'],
 \   'go': ['gofmt', 'golint', 'govet'],
 \   'typescript': ['eslint', 'tsserver'],
 \   'c' : ['clangd'],
 \   'markdown': ['mdl'],
+\   'perl': ['perl', 'perlcritic'],
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black'],
+\   'python': ['black', 'reorder-python-imports'],
 \   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
+\   'typescript': ['eslint', 'prettier'],
+\   'typescript.tsx': ['eslint', 'prettier'],
 \   'sh': ['shfmt'],
+\   'perl': ['perltidy'],
 \}
 
 " autocompletion
@@ -185,11 +201,16 @@ let g:vimwiki_list = [
 \ {'path': '~/orga/', 'index': 'okr', 'path_html': '~/orga/html', 'syntax': 'markdown', 'ext': '.md'}
 \]
 
+" turn off temporary wiki
+let g:vimwiki_global_ext = 0
+
 let g:vimwiki_url_maxsave = 0
 
 augroup markdownGroup
   au!
   autocmd Filetype markdown UltiSnipsAddFiletypes vimwiki
+  autocmd Filetype markdown let g:ale_lint_on_text_changed='never'
+  autocmd Filetype markdown let g:ale_lint_on_insert_leave = 0
 augroup END
 
 let g:vimwiki_table_mappings = 0
@@ -203,6 +224,7 @@ let g:UltiSnipsJumpBackwardTrigger='<leader><S-tab>'
 " Prevent indentlines to set conceallevel https://vi.stackexchange.com/questions/7258/how-do-i-prevent-vim-from-hiding-symbols-in-markdown-and-json
 
 " }}}
+"
 " Mappings {{{
 let mapleader="\<Space>"
 inoremap jk <ESC>
@@ -226,6 +248,15 @@ tnoremap <leader>h <C-w>h
 tnoremap <leader>k <C-w>k
 tnoremap <leader>j <C-w>j
 
+" Clipboard
+noremap <leader>s "+
+vnoremap <leader>s "+
+
+" Manual indentation
+nnoremap <S-Tab> <<
+" for insert mode
+inoremap <S-Tab> <C-d>
+
 " youcompleteme
 nnoremap <leader>yt :YcmCompleter GetType<CR>
 nnoremap <leader>yg :YcmCompleter GoTo<CR>
@@ -233,8 +264,8 @@ nnoremap <leader>yd :YcmCompleter GetDoc<CR>
 nnoremap <leader>yr :YcmCompleter RefactorRename <C-r><C-w><space>
 
 " Ale diagnostics
-noremap <C-n> :ALENext<CR>
-noremap <C-p> :ALEPrevious<CR>
+noremap <silent> <C-n> :ALENext<CR>
+noremap <silent> <C-p> :ALEPrevious<CR>
 nnoremap <leader>a :cclose<CR>
 
 " fzf preview window when using Files command
@@ -277,6 +308,13 @@ augroup pythonGroup
   autocmd Filetype python nnoremap <buffer> <leader>t :exec '!pytest'<CR>
 augroup END
 
+" Shell
+augroup shellGroup
+  au!
+  " Open a new vsplit window, exec current file in a bash shell and follow output
+  autocmd Filetype sh nnoremap <buffer> <leader>r :vsplit <bar> :term bash % <CR> <bar> :normal G <CR>
+augroup END
+
 " }}}
 " Vim Plug {{{
 call plug#begin('~/.vim/plugged')
@@ -298,6 +336,10 @@ Plug 'rust-lang/rust.vim', { 'for' : 'rust' }
 Plug 'hashivim/vim-terraform'
 Plug 'vimwiki/vimwiki', {'tag': '*'}
 Plug 'posva/vim-vue'
+Plug 'ianks/vim-tsx'
+
+" Stripped down Markdown config
+Plug 'junegunn/goyo.vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -307,12 +349,14 @@ Plug 'andrewstuart/vim-kubernetes'
 " Themes
 "Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme='distinguished'
+let g:airline_theme='simple'
 Plug 'tomasiser/vim-code-dark'
 "Plug 'altercation/vim-colors-solarized'
 
 " load last
 Plug 'ryanoasis/vim-devicons'
+
+"Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 " }}}
