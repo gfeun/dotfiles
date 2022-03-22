@@ -6,14 +6,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:"$HOME"/.local/bin:$PATH
+export PATH=$HOME/bin:"$HOME"/.local/bin:$PATH
+#export TERM=xterm-256color
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
+
 export FZF_BASE=~/.fzf/
 
 # Brew
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+export HOMEBREW_NO_ANALYTICS=1
+# Reverse search path to look for brew bin last
+# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
+export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
+export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
+export PATH="${PATH:+$PATH:}/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin";
+export MANPATH="$(manpath -g):/home/linuxbrew/.linuxbrew/share/man";
+export INFOPATH="${INFOPATH:+$INFOPATH:}/home/linuxbrew/.linuxbrew/share/info";
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -25,6 +35,9 @@ fi
 # Krew
 export PATH="${PATH}:${HOME}/.krew/bin"
 
+export PATH="$HOME/.cargo/bin:$PATH" # Cargo install
+export PATH="$HOME/go/bin:$PATH" # Cargo install
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -35,14 +48,15 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 DISABLE_AUTO_UPDATE="true"
 
 plugins=(
+  autojump
   git
   vi-mode
   sudo
+  docker
   kubectl
   kube-ps1
   golang
   bgnotify
-  cargo
   rust
   pip
   fzf
@@ -56,18 +70,15 @@ source $ZSH/oh-my-zsh.sh
 unsetopt BEEP
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export EDITOR='vim'
+export EDITOR='nvim'
 bindkey -M viins 'jk' vi-cmd-mode
 
-export PATH="$HOME/.cargo/bin:$PATH" # Cargo install
 
-export PATH="$PATH:/usr/local/go/bin"
-export GOBIN="$HOME"/go/bin/
-export PATH=$PATH:$GOBIN
-export GOPATH="$HOME"/go
-export GOROOT=/usr/local/go
+# Make less display 5 lines of context before search match
+export LESS=-j5
+export DOCKER_BUILDKIT=1
 
-function timew () {
+function tw () {
     command timew "$@" && py3-cmd refresh timewarrior
 }
 
@@ -81,11 +92,13 @@ alias yga='yadm add'
 alias ygc='yadm commit'
 alias ygp='yadm push'
 alias ygst='yadm status'
-alias tw='timew'
-alias twmo='tw move'
+alias twmo='tw modify start'
 alias twme='tw modify end'
 alias tws='tw summary :ids'
+alias twsy='tw summary yesterday :ids'
 alias twsw='tw summary :week :ids'
+alias twspw='tw summary sopw - eopw :ids'
+alias twsm='tw summary :month :ids'
 
 alias icat='kitty +kitten icat'
 # functions
