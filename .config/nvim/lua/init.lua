@@ -1,23 +1,68 @@
-require'nvim-treesitter.configs'.setup {
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require('lualine').setup {
+  extensions = { 'quickfix', 'aerial', 'fugitive' }
+}
+
+require('luasnip').setup {}
+
+require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  indent = {
-    enable= true,
-  }
 }
+require 'treesitter-context'.setup {}
 
 require('gitsigns').setup()
-require"fidget".setup{}
-require("lsp_signature").setup{}
-require("aerial").setup{
-  close_behavior = "close",
+require("aerial").setup {}
+
+require'nvim-web-devicons'.setup {}
+require("trouble").setup()
+
+--vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+local actions = require("telescope.actions")
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close
+      },
+    },
+  },
+  pickers = {
+    find_files = {
+      hidden = true,
+      file_ignore_patterns = { 'node_modules', '.git' }
+    },
+    live_grep = {
+      hidden = true
+    },
+    file_browser = {
+      hidden = true
+    }
+  },
 }
 
 -- vim.lsp.set_log_level("debug")
+
+require("mason").setup()
+require("mason-lspconfig").setup()
+
 local nvim_lsp = require('lspconfig')
-local cmp = require'cmp'
+local cmp = require 'cmp'
 local util = require 'lspconfig/util'
+require("lsp_signature").setup {}
 
 local kind_icons = {
   Text = "",
@@ -47,8 +92,12 @@ local kind_icons = {
   TypeParameter = ""
 }
 
-
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
   formatting = {
     format = function(entry, vim_item)
       -- Kind icons
@@ -64,46 +113,49 @@ cmp.setup({
       return vim_item
     end
   },
-  snippet = {
-    expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end,
-  },
-  mapping = {
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({select = true, behavior = cmp.ConfirmBehavior.Insert }), { 'i', 'c' }),
-    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })),
-    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })),
-    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
-    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+  }),
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
+    { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
   }
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
   }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
-      { name = 'cmdline' }
-    })
+    { name = 'cmdline' }
+  })
 })
+
+vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle<CR>')
+-- vim.keymap.set('n', '<leader>/', function()
+--   -- You can pass additional configuration to telescope to change theme, layout, etc.
+--   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+--     winblend = 10,
+--     previewer = false,
+--   })
+-- end, { desc = '[/] Fuzzily search in current buffer]' })
 
 
 -- Setup lspconfig.
@@ -111,14 +163,14 @@ cmp.setup.cmdline(':', {
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  require("aerial").on_attach(client, bufnr)
-  buf_set_keymap('n', '<leader>a', '<cmd>AerialToggle<CR>', {})
 
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -136,14 +188,16 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<C-p>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', '<C-n>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 print(vim.fn.expand('%'))
 
-nvim_lsp['perlpls'].setup{
+nvim_lsp['perlpls'].setup {
   settings = {
     perl = {
       perlcritic = { enabled = true },
@@ -157,11 +211,7 @@ nvim_lsp['perlpls'].setup{
   }
 }
 
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-nvim_lsp['sumneko_lua'].setup{
+nvim_lsp['lua_ls'].setup {
   settings = {
     Lua = {
       runtime = {
@@ -172,7 +222,7 @@ nvim_lsp['sumneko_lua'].setup{
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -191,7 +241,29 @@ nvim_lsp['sumneko_lua'].setup{
   }
 }
 
-local servers = { 'gopls', 'tsserver', 'vimls', 'bashls', 'pylsp', 'phpactor'}
+local null_ls = require("null-ls")
+null_ls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  sources = {
+    null_ls.builtins.diagnostics.trail_space,
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.diagnostics.golangci_lint,
+    --null_ls.builtins.diagnostics.markownlint,
+    null_ls.builtins.code_actions.shellcheck,
+    --null_ls.builtins.diagnostics.yamllint,
+  },
+})
+
+nvim_lsp['rust_analyzer'].setup {
+  capabilities = capabilities,
+  on_attach    = on_attach,
+  cmd          = {
+    "rustup", "run", "stable", "rust-analyzer"
+  }
+}
+
+local servers = { 'gopls', 'tsserver', 'vimls', 'bashls', 'phpactor', 'pylsp', 'terraformls', 'tflint', 'solidity', 'pyright' }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -202,3 +274,8 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*.tf", "*.tfvars" },
+  callback = function() vim.lsp.buf.format() end,
+})

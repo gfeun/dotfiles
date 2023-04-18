@@ -13,6 +13,8 @@ export PATH=$HOME/bin:"$HOME"/.local/bin:$PATH
 export ZSH=~/.oh-my-zsh
 
 export FZF_BASE=~/.fzf/
+export FZF_COMPLETION_TRIGGER='€€'
+export GOPATH=$HOME/go
 
 # Brew
 export HOMEBREW_NO_ANALYTICS=1
@@ -36,7 +38,7 @@ fi
 export PATH="${PATH}:${HOME}/.krew/bin"
 
 export PATH="$HOME/.cargo/bin:$PATH" # Cargo install
-export PATH="$HOME/go/bin:$PATH" # Cargo install
+export PATH="$HOME/go/bin:$PATH"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -50,6 +52,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
   autojump
   git
+  gh
   vi-mode
   sudo
   docker
@@ -63,15 +66,21 @@ plugins=(
   systemd
   minikube
   taskwarrior
+  terraform
 )
 
 source $ZSH/oh-my-zsh.sh
+
+HISTSIZE=10000000
+SAVEHIST=10000000
 
 unsetopt BEEP
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export EDITOR='nvim'
 bindkey -M viins 'jk' vi-cmd-mode
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
 
 
 # Make less display 5 lines of context before search match
@@ -92,6 +101,7 @@ alias yga='yadm add'
 alias ygc='yadm commit'
 alias ygp='yadm push'
 alias ygst='yadm status'
+alias tz='task project:zenika'
 alias twmo='tw modify start'
 alias twme='tw modify end'
 alias tws='tw summary :ids'
@@ -101,6 +111,9 @@ alias twspw='tw summary sopw - eopw :ids'
 alias twsm='tw summary :month :ids'
 
 alias icat='kitty +kitten icat'
+alias plantuml='docker run -i --rm plantuml-docker plantuml'
+
+alias vim='nvim'
 # functions
 reset_vpn() {
   sudo pkill openvpn
@@ -169,3 +182,28 @@ WTS() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+PATH="/home/gfeun/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/gfeun/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+#PERL_LOCAL_LIB_ROOT="/home/gfeun/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+#PERL_MB_OPT="--install_base \"/home/gfeun/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/home/gfeun/perl5"; export PERL_MM_OPT;
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH=/home/gfeun/google-cloud-sdk/bin/:$PATH
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/gfeun/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gfeun/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/gfeun/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gfeun/google-cloud-sdk/completion.zsh.inc'; fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+#eval "$(starship init zsh --print-full-init)"
+

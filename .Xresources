@@ -3,10 +3,10 @@
 URxvt*termName:         rxvt-256color
 !URxvt.font:             xft:Hack Nerd Font:size=11:minspace=False, xft:DejaVu Sans:pixelsize=18
 !URxvt*boldFont:         xft:Hack Nerd Font:size=11:minspace=False, xft:DejaVu Sans:pixelsize=18
-URxvt.font:             xft:MesloLGS NF:style=regular:size=11
-URxvt.boldFont:         xft:MesloLGS NF:style=bold:size=11
-URxvt.italicFont:       xft:MesloLGS NF:style=italic:size=11
-URxvt.boldItalicFont:   xft:MesloLGS NF:style=bold italic:size=11
+!URxvt.font:             xft:MesloLGS NF:style=regular:size=11
+!URxvt.boldFont:         xft:MesloLGS NF:style=bold:size=11
+!URxvt.italicFont:       xft:MesloLGS NF:style=italic:size=11
+!URxvt.boldItalicFont:   xft:MesloLGS NF:style=bold italic:size=11
 URxvt*scrollstyle:      plain
 URxvt*scrollBar:        False
 URxvt*perl-ext-common:  default,matcher

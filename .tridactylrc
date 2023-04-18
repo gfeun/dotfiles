@@ -6,12 +6,23 @@ set update.nagwait 7
 set update.lastnaggedversion 1.14.0
 set update.checkintervalsecs 86400
 
+
+" Disable autofocus
+"autocmd TabEnter .* unfocus
+autocmd DocLoad .* mouse_mode
+set allowautofocus true
+
 " Blacklists
-blacklistadd https://excalidraw.com/
+blacklistadd https://excalidraw.com
+blacklistadd https://app.strigo.io
 blacklistadd https://docs.google.com
 
 " Binds
 bind d composite tab #; tabclose #
+
+bind ,g js let uri = document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git"); tri.native.run("cd ~/perso/expe; git clone " + uri + "; cd \"$(basename \"" + uri + "\" .git)\"; st")
+
+autocmd TabEnter https://app.slack.com/ unfocus
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl

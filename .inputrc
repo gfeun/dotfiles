@@ -19,5 +19,5 @@ $if mode=vi
   # insert mode
   set keymap vi-insert
   "jk": vi-movement-mode # remap escape
-  "\C-p": history-search-backward
+  "\c-p": history-search-backward
 $endif

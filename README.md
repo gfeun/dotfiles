@@ -28,7 +28,7 @@ Config stored in [github repo](https://github.com/gfeun/dotfiles)
 
 ## Editor
 
-- Vim with [Vim Plug](https://github.com/junegunn/vim-plug) see [.vimrc]()
+- Neovim with [Vim Plug](https://github.com/junegunn/vim-plug) see [.config/nvim/init.vim]()
 
 ## Main Utilities
 
