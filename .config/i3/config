@@ -41,7 +41,10 @@ bindsym F7 exec --no-startup-id py3-cmd click --button 1 xrandr && py3-cmd click
 
 bindsym Print exec flameshot gui
 
-bindsym Scroll_Lock exec copyq toggle
+bindsym $mod+e exec NO_CLEANUP=true emoji-picker.AppImage --appimage-extract-and-run
+
+bindsym Shift+Print exec copyq toggle
+
 for_window [class="copyq"] floating enable, resize set 50ppt 50ppt, move position 25ppt 1ppt
 
 set $up k
@@ -101,7 +104,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+z layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -165,6 +168,9 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+
+workspace 3 output HDMI-0 DP-0 DP-1 eDP-1-1
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -174,27 +180,27 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        bindsym $left resize shrink width 10 px or 5 ppt
-        bindsym $up resize grow height 10 px or 5 ppt
-        bindsym $down resize shrink height 10px or 5 ppt
-        bindsym $right resize grow width 10 px or 5 ppt
+  bindsym $left resize shrink width 10 px or 5 ppt
+  bindsym $up resize grow height 10 px or 5 ppt
+  bindsym $down resize shrink height 10px or 5 ppt
+  bindsym $right resize grow width 10 px or 5 ppt
 
-        bindsym Shift+$left resize shrink width 50 px or 20 ppt
-        bindsym Shift+$up resize grow height 50 px or 20 ppt
-        bindsym Shift+$down resize shrink height 50 px or 20 ppt
-        bindsym Shift+$right resize grow width 50 px or 20 ppt
+  bindsym Shift+$left resize shrink width 50 px or 20 ppt
+  bindsym Shift+$up resize grow height 50 px or 20 ppt
+  bindsym Shift+$down resize shrink height 50 px or 20 ppt
+  bindsym Shift+$right resize grow width 50 px or 20 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym $left resize shrink width 10 px or 10 ppt
-        bindsym $up resize grow height 10 px or 10 ppt
-        bindsym $down resize shrink height 10 px or 10 ppt
-        bindsym $rightresize grow width 10 px or 10 ppt
+# same bindings, but for the arrow keys
+  bindsym $left resize shrink width 10 px or 10 ppt
+  bindsym $up resize grow height 10 px or 10 ppt
+  bindsym $down resize shrink height 10 px or 10 ppt
+  bindsym $rightresize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -202,8 +208,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command py3status --wm i3 -d
-        # status_command /home/gfeun/perso/py3status/py3status/__init__ -d
+  status_command py3status --wm i3 -d
+# status_command /home/gfeun/perso/py3status/py3status/__init__ -d
 }
 
 workspace_auto_back_and_forth yes
@@ -215,16 +221,24 @@ for_window [class="kitty"] border toggle, border pixel 1
 for_window [class="Firefox"] border toggle, border pixel 1
 for_window [class="Chromium"] border toggle, border pixel 1
 
+for_window [class="Chromium"] border toggle, border pixel 1
+
 for_window [instance="scratch"] move scratchpad, move position 20ppt 1ppt, resize set 55ppt 35ppt;
 
 bindsym Shift+F2 exec $terminal --name scratch
 
 bindsym F2 [instance="scratch"] scratchpad show; sticky toggle
 
-bindsym $mod+p mode "scratch"
+mode "pomodoro" {
+  bindsym s exec py3-cmd click pomodoro 1; mode "default"
+  bindsym r exec py3-cmd click pomodoro 3; mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
 
+bindsym $mod+p mode "scratch"
 mode "scratch" {
-  bindsym $up [instance="scratch"] move scratchpad, scratchpad show, move position 5ppt 5ppt, resize set 90ppt 40ppt;
+  bindsym $up [instance="scratch"] move scratchpad, scratchpad show, move position 2ppt 2ppt, resize set 90ppt 30ppt;
   bindsym $down [instance="scratch"] move scratchpad, scratchpad show, move position 5ppt 55ppt, resize set 90ppt 40ppt;
 
   bindsym $right [instance="scratch"] move scratchpad, scratchpad show, move position 69ppt 5ppt, resize set 30ppt 90ppt;
@@ -243,10 +257,12 @@ hide_edge_borders smart
 
 exec $terminal --name scratch
 exec --no-startup-id picom --config ~/.config/i3/picom.conf -b
-exec --no-startup-id copyq
 exec --no-startup-id flameshot
 exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
+
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c 000000
+bindsym $mod+ exec loginctl lock-session
 
 # PiP sticky window => stay across workspace changes
 # Chromium
@@ -256,4 +272,5 @@ for_window [title="Picture-in-Picture"] sticky enable
 
 exec --no-startup-id i3-msg 'workspace $ws1; exec exec /usr/bin/kitty'
 exec --no-startup-id i3-msg 'workspace $ws2; exec /usr/local/bin/firefox'
-exec --no-startup-id i3-msg 'workspace $ws3; exec /usr/local/bin/firefox -P Altirnao'
+
+for_window [class="Wfica"] move container to workspace $ws3, fullscreen disable

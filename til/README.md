@@ -31,6 +31,7 @@ make til.apkg
 - [access-command-history](vim/access-command-history.md)
 - [move between locations](vim/move-between-locations.md)
 - [delete-backward-word-in-insert-mode](vim/delete-backward-word-in-insert-mode.md)
+- [insert-digraph](vim/insert-digraph.md)
 
 ### vim-go
 

@@ -18,6 +18,7 @@ Config stored in [github repo](https://github.com/gfeun/dotfiles)
 - Additional package manager for utilities not in Debian : [Homebrew](https://brew.sh/)
 - Clipboard manager : [copyq](https://github.com/hluk/CopyQ)
 - Screenshot tool : [Flameshot](https://github.com/flameshot-org/flameshot)
+- Emoji Picker : [x11-emoji-picker](https://github.com/GaZaTu/x11-emoji-picker)
 
 ## Terminal
 

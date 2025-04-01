@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:"$HOME"/.local/bin:$PATH
 #export TERM=xterm-256color
@@ -12,7 +15,6 @@ export PATH=$HOME/bin:"$HOME"/.local/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
-export FZF_BASE=~/.fzf/
 export FZF_COMPLETION_TRIGGER='€€'
 export GOPATH=$HOME/go
 
@@ -46,6 +48,7 @@ export PATH="$HOME/go/bin:$PATH"
 # ZSH_THEME="pygmalion"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 DISABLE_AUTO_UPDATE="true"
 
@@ -75,7 +78,7 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 
 unsetopt BEEP
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 export EDITOR='nvim'
 bindkey -M viins 'jk' vi-cmd-mode
@@ -86,10 +89,6 @@ bindkey "^[f" forward-word
 # Make less display 5 lines of context before search match
 export LESS=-j5
 export DOCKER_BUILDKIT=1
-
-function tw () {
-    command timew "$@" && py3-cmd refresh timewarrior
-}
 
 # aliases
 alias apl='sudo -E apt update && sudo apt list --upgradable'
@@ -102,13 +101,6 @@ alias ygc='yadm commit'
 alias ygp='yadm push'
 alias ygst='yadm status'
 alias tz='task project:zenika'
-alias twmo='tw modify start'
-alias twme='tw modify end'
-alias tws='tw summary :ids'
-alias twsy='tw summary yesterday :ids'
-alias twsw='tw summary :week :ids'
-alias twspw='tw summary sopw - eopw :ids'
-alias twsm='tw summary :month :ids'
 
 alias icat='kitty +kitten icat'
 alias plantuml='docker run -i --rm plantuml-docker plantuml'
@@ -180,8 +172,6 @@ WTS() {
 }
 
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 PATH="/home/gfeun/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/gfeun/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -203,7 +193,3 @@ if [ -f '/home/gfeun/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gfeun
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-
-#eval "$(starship init zsh --print-full-init)"
-

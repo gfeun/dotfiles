@@ -21,11 +21,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', { 'tag': '*' , 'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/nvim-treesitter-context'
 
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'williamboman/mason.nvim', { 'tag': '*' }
+Plug 'williamboman/mason-lspconfig.nvim', { 'tag': '*' }
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -38,10 +38,10 @@ Plug 'hrsh7th/nvim-cmp'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ray-x/lsp_signature.nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvimtools/none-ls.nvim'
 
 "  Snippets
-Plug 'L3MON4D3/LuaSnip'             " Required
+Plug 'L3MON4D3/LuaSnip', {'do': 'make install_jsregexp'}             " Required
 Plug 'rafamadriz/friendly-snippets' " Optional
 
 Plug 'nvim-lua/plenary.nvim'
@@ -53,9 +53,18 @@ Plug 'nvim-tree/nvim-web-devicons'
 "Plug 'ryanoasis/vim-devicons'
 
 Plug 'nvim-tree/nvim-tree.lua'
-Plug 'stevearc/aerial.nvim'
+Plug 'stevearc/aerial.nvim', { 'tag': '*' }
 
-Plug 'folke/trouble.nvim'
+Plug 'folke/trouble.nvim', { 'tag': '*' }
+Plug 'edluffy/hologram.nvim'
+"Plug 'TabbyML/vim-tabby'
+"Plug 'folke/noice.nvim'
+Plug 'MunifTanjim/nui.nvim'
+
+Plug 'NStefan002/screenkey.nvim'
+
+Plug 'cappyzawa/starlark.vim'
+Plug 'jellydn/hurl.nvim'
 call plug#end()
 
 let base16colorspace=256
@@ -94,15 +103,6 @@ vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" press <Tab> to expand or jump in a snippet. These can also be mapped separately
-" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-" -1 for jumping backwards.
-inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
 set completeopt=menu,menuone,noselect
 
 set incsearch hlsearch ignorecase smartcase
@@ -122,24 +122,13 @@ autocmd FileType perl set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 
-let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
-let g:UltiSnipsExpandTrigger='<leader><tab>'
-let g:UltiSnipsJumpForwardTrigger='<leader><tab>'
-let g:UltiSnipsJumpBackwardTrigger='<leader><S-tab>'
-
-nnoremap <leader>tt <cmd>Telescope<cr>
-nnoremap <leader>tg <cmd>Telescope git_files<cr>
-nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>t/ <cmd>Telescope live_grep<cr>
-nnoremap <leader>tb <cmd>Telescope buffers<cr>
-nnoremap <leader>tr <cmd>Telescope registers<cr>
-nnoremap <leader>th <cmd>Telescope help_tags<cr>
-nnoremap <leader>tca <cmd>Telescope lsp_code_actions<cr>
-
 nnoremap <leader>gb <cmd>Gitsigns blame_line<cr>
-nnoremap <leader>gn <cmd>Gitsigns next_hunk<cr>
-nnoremap <leader>gp <cmd>Gitsigns prev_hunk<cr>
+nnoremap <leader>gn <cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>
+nnoremap <leader>gp <cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>
 nnoremap <leader>gk <cmd>Gitsigns preview_hunk<cr>
+
+nnoremap <leader>d <cmd>Trouble diagnostics<cr>
+nnoremap <leader>tn <cmd>NvimTreeToggle<cr>
 
 inoremap <C-r> <cmd>Telescope registers<cr>
 
@@ -148,11 +137,10 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
 
 nmap <leader>n :tab drop term://zsh<CR>
 autocmd TermOpen * set number! relativenumber!
 
+au BufNewFile,BufRead Tiltfile setlocal filetype=starlark
+
 lua require('init')
-
-
